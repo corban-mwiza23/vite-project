@@ -40,7 +40,7 @@ const handleSubmit = async(e)=>{
     };
 
     return (
-        <table className="table">
+        <table className="table m-10">
             <thead>
                 <tr>
                     <th>Title</th>
