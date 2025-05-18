@@ -168,6 +168,36 @@ app.get('/api/getMedia',(req,res)=>{
     )
 })
 
+app.put('/api/editMedia/:id', (req, res) => {
+    const { id } = req.params;
+    const { title, type, author, publisher, year, availableCopies } = req.body;
+
+    const sql = `UPDATE media SET title=?, type=?, author=?, publisher=?, year=?, availableCopies=? WHERE mediaId=?`;
+    db.query(sql, [title, type, author, publisher, year, availableCopies, id], (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+        res.json("Media updated successfully");
+    });
+});
+
+app.get('/api/getMedia/:id', (req, res) => {
+    const mediaId = req.params.id;
+
+    const sql = 'SELECT * FROM media WHERE mediaId = ?';
+    db.query(sql, [mediaId], (err, result) => {
+        if (err) {
+            console.error('Error fetching media:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Media not found' });
+        }
+
+        res.json(result[0]); // return single media item
+    });
+});
+
+
 app.listen(port,()=>{
     console.log(`Server is listening on port: ${port}`);
 })

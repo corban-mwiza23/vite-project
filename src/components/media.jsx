@@ -62,7 +62,7 @@ const handleSubmit = async(e)=>{
                         <td>{user.year}</td>
                         <td>{user.availableCopies}</td>
                         <td className="space-x-2">
-                            <Link to={`/editMedia/${user.mediaId}`} className='btn btn-warning btn-sm'>Edit</Link>
+                            <Link to={`/edit-media/${user.mediaId}`} className='btn btn-warning btn-sm'>Edit</Link>
                             <button onClick={() => deleteMedia(user.mediaId)} className="btn btn-error btn-sm">Delete</button>
                         </td>
                     </tr>
