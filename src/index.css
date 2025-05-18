@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+body{
+  @apply bg-base-200;
+}
+.c{
+  @apply card bg-base-100 border border-base-content/20 shadow;
+}
