@@ -158,6 +158,22 @@ app.post('/api/add-media',(req,res)=>{
     )
 })
 
+app.delete('/api/deleteMedia/:id',(req,res)=>{
+    const{id}=req.params;
+    db.query(
+        'DELETE FROM media WHERE mediaId=?',
+        [id],
+        (err,result)=>{
+            if(err) return res.status(500).json({Error:err});
+            if(result.affectedRows==0){
+                return res.status(409).json({message: 'Media not found'})
+            }
+            res.status(200).json({message: 'Media Deleted'})
+        }
+    )
+})
+
+
 app.get('/api/getMedia',(req,res)=>{
     db.query(
         'SELECT * FROM media',
