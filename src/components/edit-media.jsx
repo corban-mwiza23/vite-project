@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // ✅ Correct
-
+import { useNavigate } from "react-router-dom";
 function EditMedia(){
+    const navigate = useNavigate();
     const { id } = useParams(); // ✅ Correct way to get :id
     const [form, setForm] = useState({
         title: '', type: '', author: '', publisher: '', year: '', availableCopies: ''
@@ -31,7 +32,7 @@ function EditMedia(){
             const response = await axios.put(`http://localhost:5000/api/editMedia/${id}`, form);
             if(response.status==200){
                 alert(response.data);
-                Navigate('/getMedia')
+                navigate('/getMedia')
             }
         } catch(error) {
             alert('Failed UPDATING');

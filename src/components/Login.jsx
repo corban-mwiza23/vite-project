@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import bcrypt from 'bcryptjs';
 function Login(){
     const[form,setForm] = useState({username:'',password:''});
+    const navigate = useNavigate();
     const [error,setError] = useState([]);
     const handleChange= (e)=>{
         setForm({...form,[e.target.name]:e.target.value});
@@ -12,7 +13,11 @@ function Login(){
         e.preventDefault();
         try{
             const response = await axios.post('http://localhost:5000/api/login',form);
-            alert(response.data.message)
+            if(response.status==200){
+                localStorage.setItem('user',JSON.stringify(response.data.user || form.username));
+                alert(response.data.message)
+                navigate('/add-member')
+            }
         }
         catch(error){
             alert('Invalid credentials')
